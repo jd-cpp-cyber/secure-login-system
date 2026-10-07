@@ -1,6 +1,21 @@
 import os
 import sqlite3
 
+def is_strong_password(password):
+    if len(password) < 8:
+        return False
+
+    if not any(char.isupper() for char in password):
+        return False
+
+    if not any(char.islower() for char in password):
+        return False
+
+    if not any(char.isdigit() for char in password):
+        return False
+
+    return True
+
 from flask import Flask, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -38,6 +53,9 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+
+        if not is_strong_password(password):
+            return "Password must be at least 8 characters long and contain uppercase, lowercase, and a number"
 
         password_hash = generate_password_hash(password)
 
