@@ -35,6 +35,9 @@ csrf = CSRFProtect(app)
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
 def get_db_connection():
     conn = sqlite3.connect("users.db")
     conn.row_factory = sqlite3.Row

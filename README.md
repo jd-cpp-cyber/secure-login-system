@@ -47,6 +47,10 @@ Login attempts are rate-limited to 5 requests per minute per IP address using Fl
 
 Cross-Site Request Forgery (CSRF) protection is enabled using Flask-WTF. Registration and login forms include CSRF tokens that are validated by the server before processing requests.
 
+### Secure Session Cookies
+
+Session cookies are configured with HttpOnly and SameSite attributes to reduce unauthorized client-side access and help protect against certain cross-site attacks.
+
 ### Session Authentication
 
 Flask sessions are used to keep track of authenticated users and protect the dashboard from unauthenticated access.
@@ -122,6 +126,7 @@ The following authentication and security scenarios were tested:
 * Invalid password handling
 * Login rate limiting after 5 requests per minute
 * CSRF token validation for registration and login
+* Secure session cookie configuration
 * Protected dashboard access
 * Logout functionality
 * Password hashes stored instead of plaintext passwords
