@@ -17,9 +17,9 @@ def is_strong_password(password):
     return True
 
 from flask import Flask, render_template, request, session
-
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_wtf.csrf import CSRFProtect
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -30,6 +30,8 @@ limiter = Limiter(
     app=app,
     default_limits=[]
 )
+
+csrf = CSRFProtect(app)
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 

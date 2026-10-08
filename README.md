@@ -43,6 +43,10 @@ Parameterized SQL queries are used when interacting with the SQLite database ins
 
 Login attempts are rate-limited to 5 requests per minute per IP address using Flask-Limiter. This helps reduce repeated automated password-guessing attempts.
 
+### CSRF Protection
+
+Cross-Site Request Forgery (CSRF) protection is enabled using Flask-WTF. Registration and login forms include CSRF tokens that are validated by the server before processing requests.
+
 ### Session Authentication
 
 Flask sessions are used to keep track of authenticated users and protect the dashboard from unauthenticated access.
@@ -117,6 +121,7 @@ The following authentication and security scenarios were tested:
 * Successful login
 * Invalid password handling
 * Login rate limiting after 5 requests per minute
+* CSRF token validation for registration and login
 * Protected dashboard access
 * Logout functionality
 * Password hashes stored instead of plaintext passwords
