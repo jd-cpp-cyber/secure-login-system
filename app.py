@@ -17,9 +17,20 @@ def is_strong_password(password):
     return True
 
 from flask import Flask, render_template, request, session
+
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=[]
+)
+
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 def get_db_connection():
@@ -80,6 +91,7 @@ def register():
     return render_template("register.html")
 
 @app.route("/login", methods=["GET", "POST"])
+@limiter.limit("5 per minute")
 def login():
     if request.method == "POST":
         username = request.form["username"]

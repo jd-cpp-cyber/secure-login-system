@@ -39,6 +39,10 @@ During login, the submitted password is verified against the stored password has
 
 Parameterized SQL queries are used when interacting with the SQLite database instead of directly inserting user input into SQL statements.
 
+### Login Rate Limiting
+
+Login attempts are rate-limited to 5 requests per minute per IP address using Flask-Limiter. This helps reduce repeated automated password-guessing attempts.
+
 ### Session Authentication
 
 Flask sessions are used to keep track of authenticated users and protect the dashboard from unauthenticated access.
@@ -102,18 +106,23 @@ Open the local URL shown in the terminal in your browser.
 
 The following authentication scenarios were tested:
 
+## Testing
+
+The following authentication and security scenarios were tested:
+
 * Successful user registration
+* Strong password accepted
+* Weak password rejected
 * Duplicate username detection
 * Successful login
 * Invalid password handling
+* Login rate limiting after 5 requests per minute
 * Protected dashboard access
 * Logout functionality
 * Password hashes stored instead of plaintext passwords
 
 ## Future Improvements
 
-* Password strength validation
-* Login rate limiting
 * CSRF protection
 * Improved user interface
 * Better error and success messages
