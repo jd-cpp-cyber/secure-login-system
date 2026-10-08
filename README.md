@@ -110,9 +110,18 @@ python3 app.py
 
 Open the local URL shown in the terminal in your browser.
 
-## Testing
+## Security Testing
 
-The following authentication scenarios were tested:
+The application was tested against common authentication security scenarios:
+
+* Incorrect passwords are rejected.
+* Weak passwords are rejected during registration.
+* Duplicate usernames are rejected.
+* Login attempts are rate-limited to 5 requests per minute per IP address.
+* CSRF protection blocks requests without a valid CSRF token.
+* Unauthenticated users cannot access the dashboard.
+* Logout removes the authenticated session.
+* SQL injection attempts cannot bypass authentication.
 
 ## Testing
 
@@ -130,6 +139,7 @@ The following authentication and security scenarios were tested:
 * Protected dashboard access
 * Logout functionality
 * Password hashes stored instead of plaintext passwords
+* SQL injection attempts cannot bypass authentication
 
 ## Future Improvements
 
